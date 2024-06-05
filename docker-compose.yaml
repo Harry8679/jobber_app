@@ -14,7 +14,7 @@ services:
     image: mongo:latest
     restart: always
     ports:
-      - 27017:27017
+      - '27017:27017'
     volumes:
       - ./docker-volumes/data:/data/db
   mysql:
@@ -27,4 +27,17 @@ services:
       - MYSQL_DATABASE=jobber_auth
       - MYSQL_ROOT_PASSWORD=api
       - MYSQL_PASSWORD=api
-    
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./docker-volumes/mysql:/var/lib/mysql
+  postgre:
+    container_name: postgre_container
+    image: postgre
+    restart: always
+    environment:
+      - POSTGRE_USER=jobber
+      - POSTGRE_DATABASE=api
+      - POSTGRE_DB=jobber_reviews
+    ports:
+      - '5432:5432'
